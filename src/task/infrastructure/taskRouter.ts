@@ -1,17 +1,14 @@
 import express from 'express';
-import { TaskController } from './controllers/TaskController';
-import { TaskService } from '../application/TaskService';
-import { TaskRepositoryMongoose } from './TaskRepositoryMongoose';
+import {
+  addTaskController,
+  updateTaskController,
+  getAllTasksController,
+} from './dependencies';
 
 const router = express.Router();
-const taskRepository = new TaskRepositoryMongoose();
-const taskService = new TaskService(taskRepository);
-const taskController = new TaskController(taskService);
 
-router.post('/add', taskController.addTask.bind(taskController));
-router.put('/update/:taskId', taskController.updateTask.bind(taskController));
-router.get('/get/:taskId', taskController.getTaskById.bind(taskController));
-router.get('/all', taskController.getAllTasks.bind(taskController));
-router.delete('/delete/:taskId', taskController.deleteTask.bind(taskController));
+router.post('/add', addTaskController.addTask.bind(addTaskController));
+router.put('/update/:taskId', updateTaskController.updateTask.bind(updateTaskController));
+router.get('/all', getAllTasksController.getAllTasks.bind(getAllTasksController));
 
 export default router;

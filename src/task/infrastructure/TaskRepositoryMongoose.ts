@@ -25,18 +25,8 @@ export class TaskRepositoryMongoose implements TaskRepository {
     return updatedTask ? updatedTask.toObject() : null;
   }
 
-  async getTaskById(taskId: string): Promise<Task | null> {
-    const task = await TaskModel.findById(taskId);
-    return task ? task.toObject() : null;
-  }
-
   async getAllTasks(): Promise<Task[]> {
     const tasks = await TaskModel.find();
     return tasks.map((task) => task.toObject());
-  }
-
-  async deleteTask(taskId: string): Promise<boolean> {
-    const result = await TaskModel.findByIdAndDelete(taskId);
-    return !!result;
   }
 }
